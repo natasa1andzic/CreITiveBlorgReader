@@ -35,23 +35,72 @@ public class LoginActivity extends AppCompatActivity {
 				String email = emailEt.getText().toString().trim();
 				String password = passwordEt.getText().toString().trim();
 
-				if (email.equals("candidate@creitive.com") && password.equals("1234567")) {
+				if(!isValidEmail(email)) {
+					makeInvalidEmailDialog();
+				}
+
+				if(password.length()<6){
+					makeShortPasswordDialog();
+				}
+				else if (email.equals("candidate@creitive.com") && password.equals("1234567")) {
 					Intent i = new Intent(LoginActivity.this, MainActivity.class);
 					startActivity(i);
 				}
-				else {
-					final AlertDialog.Builder builder;
-						builder = new AlertDialog.Builder(LoginActivity.this);
-					builder.setTitle("Login")
-							.setMessage("You entered invalid data (email/password), try again")
-							.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-
-								}
-							})
-							.show();
-				}
+				else
+					makeInvalidCredDialog();
 			}
 		});
 	}
-}
+
+	private void makeShortPasswordDialog() {
+		final AlertDialog.Builder builder;
+		builder = new AlertDialog.Builder(LoginActivity.this);
+		builder.setTitle("Short password")
+				.setMessage("Password needs to be at least 6 characters long, try again")
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				})
+				.show();
+
+	}
+
+	private void makeInvalidEmailDialog() {
+		final AlertDialog.Builder builder;
+		builder = new AlertDialog.Builder(LoginActivity.this);
+		builder.setTitle("Invalid email format")
+				.setMessage("You entered invalid email format, try again")
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				})
+				.show();
+
+
+	}
+
+	public static boolean isValidEmail(CharSequence target) {
+		if (target == null) {
+			return false;
+		} else {
+			return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+		}
+	}
+
+	public void makeInvalidCredDialog(){
+		final AlertDialog.Builder builder;
+		builder = new AlertDialog.Builder(LoginActivity.this);
+		builder.setTitle("Login")
+				.setMessage("You entered invalid data (email/password), try again")
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				})
+				.show();
+	}
+
+	}
+

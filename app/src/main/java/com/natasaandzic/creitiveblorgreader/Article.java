@@ -2,45 +2,37 @@ package com.natasaandzic.creitiveblorgreader;
 
 public class Article {
 
-	private int imgId=NO_IMAGE;
+	private String title;
+	private String image_url;
+	private String description;
 
-	private static final int NO_IMAGE=-1;
-
-	private String articleName;
-
-	private String articleDescription;
-
-	public Article(int imgId, String articleName, String articleDescription) {
-		this.imgId=imgId;
-		this.articleName=articleName;
-		this.articleDescription=articleDescription;
+	public Article(String title, String image_url, String description) {
+		this.title = title;
+		this.image_url = image_url;
+		this.description = description;
 	}
 
-	public boolean hasImage() {
-		return imgId!= NO_IMAGE;
+	public String getTitle() {
+		return title;
 	}
 
-	public int getImgId() {
-		return imgId;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public void setImgId(int imgId) {
-		this.imgId = imgId;
+	public String getImage_url() {
+		return image_url;
 	}
 
-	public String getArticleName() {
-		return articleName;
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
 	}
 
-	public void setArticleName(String articleName) {
-		this.articleName = articleName;
+	public String getDescription() {
+		return description;
 	}
 
-	public String getArticleDescription() {
-		return articleDescription;
-	}
-
-	public void setArticleDescription(String articleDescription) {
-		this.articleDescription = articleDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

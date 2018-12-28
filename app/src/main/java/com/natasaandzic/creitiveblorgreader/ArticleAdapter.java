@@ -9,13 +9,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
 
+	private Context context;
+	private List<Article> articles;
 
-	public ArticleAdapter(Context context, ArrayList<Article> articles) {
-		super(context, 0, articles);
+
+	public ArticleAdapter(Context context, List<Article> articles) {
+		super(context, R.layout.list_item, articles);
+		this.context=context;
+		this.articles=articles;
 	}
 
 	@Override
@@ -31,17 +39,22 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 		Article currentArticle = getItem(position);
 
 		ImageView imgId = (ImageView) listItemView.findViewById(R.id.articleImgTv);
-		if(currentArticle.hasImage()) {
-			imgId.setImageResource(currentArticle.getImgId());
-			imgId.setVisibility(View.VISIBLE);
-		}
-		else imgId.setVisibility(View.GONE);
+		String photoUri = currentArticle.getImage_url();
+		imgId.setVisibility(View.VISIBLE);
 
-		TextView articleNameTv = (TextView) listItemView.findViewById(R.id.articleNameTv);
-		articleNameTv.setText(currentArticle.getArticleName());
+		//upisivanje podataka u layout
+		Picasso.with(getContext())
+				.load(photoUri)
+				.placeholder(android.R.drawable.sym_def_app_icon)
+				.error(android.R.drawable.sym_def_app_icon)
+				.into(imgId);
 
-		TextView articleDescTv = (TextView) listItemView.findViewById(R.id.articleDescTv);
-		articleDescTv.setText(currentArticle.getArticleDescription());
+
+		TextView title = (TextView) listItemView.findViewById(R.id.articleNameTv);
+		title.setText(currentArticle.getTitle());
+
+		TextView description = (TextView) listItemView.findViewById(R.id.articleDescTv);
+		description.setText(currentArticle.getDescription());
 
 		return listItemView;
 	}

@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 				call.enqueue(new Callback<User>() {
 					@Override
 					public void onResponse(Call<User> call, Response<User> response) {
-						Toast.makeText(LoginActivity.this, "Ne valja", Toast.LENGTH_SHORT).show();
+						Toast.makeText(LoginActivity.this, "Radi", Toast.LENGTH_SHORT).show();
 						//Intent i = new Intent(LoginActivity.this, MainActivity.class);
 						//startActivity(i);
 					}
